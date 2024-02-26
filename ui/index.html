@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codepen</title>
+    <style>
+      .codepen-iframe {
+        width: 100%;
+        height: 300px;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="" id="codepen_iframe" name="codepen-iframe" class="codepen-iframe" title="Codepen"></iframe>
+    <script>
+      onmessage = (event) => {
+        const src = event.data.pluginMessage.src;
+        console.log("onmessage", src);
+        const iframe = document.getElementById('codepen_iframe');
+        iframe.src = src.url;
+        iframe.title = src.name;
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "Codepen",
+  "id": "1343856325956855664",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [
+    "inspect",
+    "vscode"
+  ],
+  "ui": "ui/index.html",
+  "enableProposedApi": false,
+  "editorType": [
+    "dev"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://codepen.io/"
+    ],
+    "reasoning": "To load the Codepen.",
+    "devAllowedDomains": [
+      "https://codepen.io/"
+    ]
+  },
+  "documentAccess": "dynamic-page"
+}
