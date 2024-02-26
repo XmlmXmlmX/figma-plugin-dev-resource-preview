@@ -1,5 +1,5 @@
 const allCodepenDevResources = async (sceneNode: SceneNode) => {
-  const urlRegex: RegExp = new RegExp(/(https?:\/\/(.+?\.)?codepen\.io(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/);
+  const urlRegex: RegExp = new RegExp(/(https?:\/\/(.+?\.)?codepen\.io(\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?)/);
   const devResources = (await sceneNode.getDevResourcesAsync({includeChildren: true})).filter(x => x.url.match(urlRegex));
   return devResources;
 };
