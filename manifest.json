@@ -7,19 +7,20 @@
     "inspect",
     "vscode"
   ],
-  "ui": "ui/index.html",
+  "ui": {
+    "codepen": "ui/index.html",
+    "empty": "ui/empty.html"
+  },
   "enableProposedApi": false,
   "editorType": [
     "dev"
   ],
   "networkAccess": {
     "allowedDomains": [
-      "https://codepen.io/"
+      "https://codepen.io",
+      "https://cpwebassets.codepen.io"
     ],
-    "reasoning": "To load the Codepen.",
-    "devAllowedDomains": [
-      "https://codepen.io/"
-    ]
+    "reasoning": "To load the Codepen."
   },
   "documentAccess": "dynamic-page"
 }

@@ -14,11 +14,10 @@ const getCodepenUrlAsync = async() => {
       default: {
         if (src) {
           const urlSplit = src.url.substring(src.url.lastIndexOf('codepen.io/') + 11).split('/')
-          const href = `https://codepen.io/${urlSplit[0]}/full/${urlSplit[2]}`;
-          figma.showUI(`<script>window.location.href = "${href}";</script>`, { themeColors: true });
+          figma.showUI(__uiFiles__.codepen, { themeColors: true });
+          figma.ui.postMessage({ slugHash: urlSplit[2], user: urlSplit[1] });
         } else {
-          
-          figma.showUI(`<p style="color: var(--figma-color-text); font-family: sans-serif; padding: 2rem; text-align: center;">No Codepen url found.<br>Please select a different frame or component.</p>`, { themeColors: true });
+          figma.showUI(__uiFiles__.empty, { themeColors: true });
         }
       }
     }
