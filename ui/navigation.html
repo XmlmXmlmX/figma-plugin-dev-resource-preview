@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codepen</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+        }
+
+        nav .menu {
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        nav .menu li {
+            display: flex;
+            padding: .5rem;
+            background: var(--figma-color-bg);
+            cursor: pointer;
+            color: var(--figma-color-text);
+            align-items: center;
+            justify-content: start;
+            gap: .5rem;
+            font-size: 11px;
+        }
+
+        nav .menu li svg {
+            color: var(--figma-color-icon);
+        }
+
+        nav .menu li:hover {
+            background: var(--figma-color-bg-hover);
+        }
+    </style>
+</head>
+
+<body>
+    {{svgIcons}}
+    <nav aria-label="Resources">
+        <ul id="menu_items" class="menu" aria-label="Resources"></ul>
+    </nav>
+    <template id="jsfiddleIcon">
+        <svg height="24" width="24">
+            <use xlink:href="#jsfiddle"></use>
+        </svg>
+    </template>
+    <template id="codepenIcon">
+        <svg height="24" width="24">
+            <use xlink:href="#codepen"></use>
+        </svg>
+    </template>
+    <template id="pastebinIcon">
+        <svg height="24" width="24">
+            <use xlink:href="#pastebin"></use>
+        </svg>
+    </template>
+    <template id="lottieIcon">
+        <svg height="24" width="24">
+            <use xlink:href="#lottie"></use>
+        </svg>
+    </template>
+    <script>
+        onmessage = (event) => {
+            const { data: { pluginMessage: { devResources } } } = event;
+            const menu_items = document.getElementById('menu_items');
+            devResources.forEach((devResource, index) => {
+                let tab = document.createElement('li');
+                const iconTemplate = document.getElementById(`${devResource.type}Icon`);
+                const icon = iconTemplate.content.cloneNode(true);
+                tab.title = `${devResource.name} (${devResource.type})`;
+                tab.textContent = `${devResource.name}`;
+                tab.role = 'button';
+                tab.onclick = (event) => {
+                    parent.postMessage({ pluginMessage: { type: 'selection_change', selectionIndex: index } }, '*')
+                };
+                tab.prepend(icon);
+                menu_items.appendChild(tab);
+            });
+        };
+    </script>
+</body>
+
+</html>

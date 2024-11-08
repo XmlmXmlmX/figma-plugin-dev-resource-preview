@@ -62,10 +62,37 @@
       font-weight: bold;
       color: var(--figma-color-text-danger);
     }
+
+    .back-btn {
+      display: flex;
+      padding: .5rem;
+      background: var(--figma-color-bg);
+      cursor: pointer;
+      color: var(--figma-color-text);
+      align-items: center;
+      justify-content: start;
+      gap: .5rem;
+      font-size: 11px;
+      border: 0;
+    }
+
+    .back-btn:hover {
+      background: var(--figma-color-bg-hover);
+    }
+
+    .back-btn svg {
+      color: var(--figma-color-icon);
+    }
   </style>
 </head>
 
 <body>
+  {{svgIcons}}
+  <button title="Go back" id="back_btn" class="back-btn">
+    <svg height="24" width="24">
+      <use xlink:href="#arrow-left"></use>
+    </svg>
+  </button>
   <p id="codepen_container" class="codepen" data-height="300" data-theme-id="dark" data-default-tab="html,result"
     data-slug-hash="" data-user="">
     <span class="message">Sorry, Codepen could not be loaded here 😪</span>
@@ -73,6 +100,11 @@
   </p>
   <script>
     const codepen_container = document.getElementById('codepen_container');
+    const back_btn = document.getElementById('back_btn');
+
+    back_btn.onclick = (event) => {
+      parent.postMessage({ pluginMessage: { type: 'home' } }, '*');
+    };
 
     onload = (event) => {
       codepen_container.dataset.height = document.body.clientHeight;
@@ -81,13 +113,16 @@
 
     onmessage = (event) => {
       const { data: { pluginMessage: { user, slugHash } } } = event;
-      codepen_container.dataset.user = user;
-      codepen_container.dataset.slugHash = slugHash;
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://cpwebassets.codepen.io/assets/embed/ei.js';
-      document.body.appendChild(script);
-      document.getElementById('fallbackLink').href = `https://codepen.io/${user}/pen/${slugHash}`;
+
+      if (user && slugHash) {
+        codepen_container.dataset.user = user;
+        codepen_container.dataset.slugHash = slugHash;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://cpwebassets.codepen.io/assets/embed/ei.js';
+        document.body.appendChild(script);
+        document.getElementById('fallbackLink').href = `https://codepen.io/${user}/pen/${slugHash}`;
+      }
     };
   </script>
 </body>

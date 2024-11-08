@@ -1,5 +1,5 @@
 {
-  "name": "Codepen",
+  "name": "Developer Resource Preview",
   "id": "1343856325956855664",
   "api": "1.0.0",
   "main": "code.js",
@@ -8,8 +8,13 @@
     "vscode"
   ],
   "ui": {
-    "codepen": "ui/index.html",
-    "empty": "ui/empty.html"
+    "codepen": "ui/codepen.html",
+    "jsfiddle": "ui/jsfiddle.html",
+    "lottie": "ui/lottie.html",
+    "empty": "ui/empty.html",
+    "navigation": "ui/navigation.html",
+    "pastebin": "ui/pastebin.html",
+    "icons": "ui/icons.svg"
   },
   "enableProposedApi": false,
   "editorType": [
@@ -18,7 +23,11 @@
   "networkAccess": {
     "allowedDomains": [
       "https://codepen.io",
-      "https://cpwebassets.codepen.io"
+      "https://cpwebassets.codepen.io",
+      "https://unpkg.com",
+      "https://lottie.host",
+      "https://jsfiddle.net",
+      "https://pastebin.com"
     ],
     "reasoning": "To load the Codepen."
   },

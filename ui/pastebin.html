@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pastebin</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, sans-serif;
+    }
+
+    .back-btn {
+      display: flex;
+      padding: .5rem;
+      background: var(--figma-color-bg);
+      cursor: pointer;
+      color: var(--figma-color-text);
+      align-items: center;
+      justify-content: start;
+      gap: .5rem;
+      font-size: 11px;
+      border: 0;
+    }
+
+    .back-btn:hover {
+      background: var(--figma-color-bg-hover);
+    }
+
+    .back-btn svg {
+      color: var(--figma-color-icon);
+    }
+  </style>
+</head>
+
+<body>
+  {{svgIcons}}
+  <button title="Go back" id="back_btn" class="back-btn">
+    <svg height="24" width="24">
+      <use xlink:href="#arrow-left"></use>
+    </svg>
+  </button>
+
+  <script>
+    const back_btn = document.getElementById('back_btn');
+
+    back_btn.onclick = (event) => {
+      parent.postMessage({ pluginMessage: { type: 'home' } }, '*');
+    };
+
+    onmessage = async (event) => {
+      const { data: { pluginMessage: { url } } } = event;
+
+      if (url) {
+        const iconsClone = document.getElementById('icons').cloneNode(true);
+        const back_btnClone = back_btn.cloneNode(true);
+        const mode = document.documentElement.className.match(/figma-dark/) ? 'dark' : 'light';
+        const script = document.createElement('script');
+        script.async = true;
+        urlPath = url.substring(url.indexOf('//pastebin.com') + 15);
+        script.src = `https://pastebin.com/embed_js/${urlPath}?theme=${mode}`;
+        document.body.appendChild(script);
+        document.open();
+      }
+    };
+  </script>
+</body>
+
+</html>

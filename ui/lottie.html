@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LottieFiles</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, sans-serif;
+    }
+
+    dotlottie-player {
+      background: transparent;
+      width: 100%;
+      height: 300px;
+    }
+
+    .back-btn {
+      display: flex;
+      padding: .5rem;
+      background: var(--figma-color-bg);
+      cursor: pointer;
+      color: var(--figma-color-text);
+      align-items: center;
+      justify-content: start;
+      gap: .5rem;
+      font-size: 11px;
+      border: 0;
+    }
+
+    .back-btn:hover {
+      background: var(--figma-color-bg-hover);
+    }
+
+    .back-btn svg {
+      color: var(--figma-color-icon);
+    }
+  </style>
+</head>
+
+<body>
+  {{svgIcons}}
+  <button title="Go back" id="back_btn" class="back-btn">
+    <svg height="24" width="24">
+      <use xlink:href="#arrow-left"></use>
+    </svg>
+  </button>
+  <dotlottie-player src="" background="transparent" speed="1" loop autoplay></dotlottie-player>
+  <script>
+    const dotlottie_player = document.querySelector('dotlottie-player');
+    const back_btn = document.getElementById('back_btn');
+
+    back_btn.onclick = (event) => {
+      parent.postMessage({ pluginMessage: { type: 'home' } }, '*');
+    };
+
+    onload = (event) => {
+      dotlottie_player.style.height = document.body.clientHeight;
+      dotlottie_player.dataset.themeId = document.documentElement.className.match(/figma-dark/) ? 'dark' : 'light';
+    };
+
+    onmessage = (event) => {
+      const { data: { pluginMessage: { src } } } = event;
+
+      if (src) {
+        dotlottie_player.src = src;
+        const script = document.createElement('script');
+        script.async = true;
+        script.type = 'module';
+        script.src = 'https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs';
+        document.body.appendChild(script);
+      }
+    };
+  </script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-# Figma Plugin: Codepen (for Dev Mode)
+# Figma Plugin: Developer Resource Preview (for Dev Mode)
 
 ## Getting startet
 
